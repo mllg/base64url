@@ -9,7 +9,7 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-Here is a small benchmark to compare the performance with the base64 encoding and decoding in [base64enc](https://cran.r-project.org/package=base64enc) and [openssl](https://cran.r-project.org/package=openssl).
+This small benchmark compares the performance of the base64 encoding/decoding in package `base64url` with the implementations in the packages [`base64enc`](https://cran.r-project.org/package=base64enc) and [`openssl`](https://cran.r-project.org/package=openssl).
 
 ## Encoding of a single string
 ```{r}
@@ -37,8 +37,18 @@ microbenchmark(
 ```
 
 ## Encoding and decoding of character vectors
-Only `base64url` is vectorized for string input.
-The other implementations need wrappers:
+Here, the task has changed from encoding/decoding a single string to processing multiple strings stored inside a character vector.
+First, we create a small utility function which returns `n` random strings with a random number of characters (between 1 and 32) each.
+```{r}
+rand = function(n, min = 1, max = 32) {
+  chars = c(letters, LETTERS, as.character(0:9), c(".", ":", ",", "+", "-", "*", "/"))
+  replicate(n, paste0(sample(chars, sample(min:max, 1), replace = TRUE), collapse = ""))
+}
+set.seed(1)
+rand(10)
+```
+
+Only `base64url` is vectorized for string input, the alternative implementations need wrappers to process character vectors:
 ```{r}
 base64enc_encode = function(x) {
   vapply(x, function(x) base64encode(charToRaw(x)), NA_character_, USE.NAMES = FALSE)
@@ -57,13 +67,8 @@ openssl_decode = function(x) {
 }
 ```
 
-Here, we now benchmark the encoding and decoding of 1000 random strings with 1 to 32 characters each.
+The following benchmark measures the runtime to encode 1000 random strings and then decode them again:
 ```{r}
-rand = function(n, min = 1, max = 32) {
-  chars = c(letters, LETTERS, as.character(0:9), c(".", ":", ",", "+", "-", "*", "/"))
-  replicate(n, paste0(sample(chars, sample(min:max, 1), replace = TRUE), collapse = ""))
-}
-
 set.seed(1)
 x = rand(1000)
 microbenchmark(
