@@ -1,7 +1,7 @@
 /* Original source code taken from
  * https://svn.apache.org/repos/asf/apr/apr/trunk/encoding/apr_base64.c
  *
- * Changes by Michel Lang:
+ * Changes by Michel Lang <michellang@gmail.com>:
  * - Replaced char 62 ('+') with '-'
  * - Replaced char 63 ('/') with '_'
  * - Removed padding with '=' at the end of the string
@@ -137,11 +137,11 @@ static void Base64encode(char *encoded, const char *string, int len) {
 SEXP b64e(SEXP strings) {
     if (!isString(strings))
         error("Argument must be a character vector");
-    
-    const R_len_t n = length(strings);
+
+    const R_xlen_t n = xlength(strings);
     SEXP result = PROTECT(allocVector(STRSXP, n));
 
-    for (R_len_t i = 0; i < n; i++) {
+    for (R_xlen_t i = 0; i < n; i++) {
         if (STRING_ELT(strings, i) == NA_STRING) {
             SET_STRING_ELT(result, i, NA_STRING);
         } else {
@@ -162,10 +162,10 @@ SEXP b64d(SEXP strings) {
     if (!isString(strings))
         error("Argument must be a character vector");
 
-    const R_len_t n = length(strings);
+    const R_xlen_t n = xlength(strings);
     SEXP result = PROTECT(allocVector(STRSXP, n));
 
-    for (R_len_t i = 0; i < n; i++) {
+    for (R_xlen_t i = 0; i < n; i++) {
         if (STRING_ELT(strings, i) == NA_STRING) {
             SET_STRING_ELT(result, i, NA_STRING);
         } else {

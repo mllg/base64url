@@ -1,0 +1,74 @@
+---
+title: "Benchmark"
+author: "Michel Lang"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Here is a small benchmark to compare the performance with the base64 encoding and decoding in [base64enc](https://cran.r-project.org/package=base64enc) and [openssl](https://cran.r-project.org/package=openssl).
+
+## Encoding of a single string
+```{r}
+library(base64url)
+library(base64enc)
+library(openssl)
+library(microbenchmark)
+
+x = "plain text"
+microbenchmark(
+  base64url = base64_urlencode(x),
+  base64enc = base64encode(charToRaw(x)),
+  openssl = base64_encode(x)
+)
+```
+
+## Decoding of a single string
+```{r}
+x = "N0JBLlRaUTp1bi5KOW4xWStNWEJoLHRQaDZ3"
+microbenchmark(
+  base64url = base64_urldecode(x),
+  base64enc = rawToChar(base64decode(x)),
+  openssl = rawToChar(base64_decode(x))
+)
+```
+
+## Encoding and decoding of character vectors
+Only `base64url` is vectorized for string input.
+The other implementations need wrappers:
+```{r}
+base64enc_encode = function(x) {
+  vapply(x, function(x) base64encode(charToRaw(x)), NA_character_, USE.NAMES = FALSE)
+}
+
+openssl_encode = function(x) {
+  vapply(x, function(x) base64_encode(x), NA_character_, USE.NAMES = FALSE)
+}
+
+base64enc_decode = function(x) {
+  vapply(x, function(x) rawToChar(base64decode(x)), NA_character_, USE.NAMES = FALSE)
+}
+
+openssl_decode = function(x) {
+  vapply(x, function(x) rawToChar(base64_decode(x)), NA_character_, USE.NAMES = FALSE)
+}
+```
+
+Here, we now benchmark the encoding and decoding of 1000 random strings with 1 to 32 characters each.
+```{r}
+rand = function(n, min = 1, max = 32) {
+  chars = c(letters, LETTERS, as.character(0:9), c(".", ":", ",", "+", "-", "*", "/"))
+  replicate(n, paste0(sample(chars, sample(min:max, 1), replace = TRUE), collapse = ""))
+}
+
+set.seed(1)
+x = rand(1000)
+microbenchmark(
+  base64url = base64_urldecode(base64_urlencode(x)),
+  base64enc = base64enc_decode(base64enc_encode(x)),
+  openssl = openssl_decode(openssl_encode(x))
+)
+```
