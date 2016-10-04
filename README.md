@@ -1,6 +1,6 @@
 # base64url
 
-[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/base64url)](http://cran.r-project.org/package=base64url)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/base64url)](https://cran.r-project.org/package=base64url)
 [![Build Status](https://travis-ci.org/mllg/base64url.svg?branch=master)](https://travis-ci.org/mllg/base64url)
 [![Build status](https://ci.appveyor.com/api/projects/status/5329u3dk9vanak0p/branch/master?svg=true)](https://ci.appveyor.com/project/mllg/base64url/branch/master)
 [![Coverage Status](https://coveralls.io/repos/github/mllg/base64url/badge.svg?branch=master)](https://coveralls.io/github/mllg/base64url?branch=master)
