@@ -9,6 +9,8 @@ In contrast to base64 RFC3548, the 62nd character (`'+'`) is replaced with `'-'`
 Furthermore, the encoder does not fill the string with trailing `'='`.
 The resulting encoded strings comply to the regular expression pattern `'[A-Za-z0-9_-]'` and thus are safe to use in URLs or for file names.
 
+For a small benchmark study, see the [vignette](https://cran.r-project.org/web/packages/base64url/vignettes/Benchmarks.html).
+
 ## Installation
 For the stable release, just install the latest version from [CRAN](https://cran.r-project.org/package=base64url):
 ```{R}
