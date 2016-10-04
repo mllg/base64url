@@ -1,0 +1,9 @@
+^src/.+\.o$
+^src/.+\.so$
+\.swp$
+^\.agignore$
+^\.editorconfig$
+^.travis.yml$
+^appveyor\.yml$
+^.*\.Rproj$
+^\.Rproj\.user$

@@ -1,0 +1,16 @@
+Package: base64url
+Type: Package
+Title: Base64 encode and decode for URLs
+Version: 1.0
+Author: Michel Lang <michellang@gmail.com>
+Maintainer: Michel Lang <michellang@gmail.com>
+Description: Encodes and decodes string from and to base64. 
+URL: https://github.com/mllg/base64url
+NeedsCompilation: yes
+License: GPL-2
+Encoding: UTF-8
+Suggests: 
+    base64enc,
+    checkmate,
+    testthat
+RoxygenNote: 5.0.1
