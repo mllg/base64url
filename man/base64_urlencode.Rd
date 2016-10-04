@@ -22,4 +22,11 @@ Furthermore, the encoder does not fill the string with trailing \sQuote{=}.
 The resulting encoded strings comply to the regular expression pattern \dQuote{[A-Za-z0-9_-]} and thus are safe to use in URLs
 or for file names.
 }
+\examples{
+x = "plain text"
+encoded = base64_urlencode(x)
+decoded = base64_urldecode(encoded)
+print(encoded)
+print(decoded)
+}
 

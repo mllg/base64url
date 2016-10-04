@@ -12,6 +12,12 @@
 #' @return [\code{character}] of the same length as input \code{x}.
 #' @useDynLib base64url b64e
 #' @export
+#' @examples
+#' x = "plain text"
+#' encoded = base64_urlencode(x)
+#' decoded = base64_urldecode(encoded)
+#' print(encoded)
+#' print(decoded)
 base64_urlencode = function(x) {
   .Call(b64e, x)
 }
