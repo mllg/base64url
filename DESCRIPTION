@@ -1,7 +1,7 @@
 Package: base64url
 Type: Package
 Title: Fast and URL-Safe Base64 Encoder and Decoder
-Version: 1.0
+Version: 1.1
 Authors@R: c(
     person("Michel", "Lang", NULL, "michellang@gmail.com", role = c("cre", "aut")),
     person(NULL, "Apache Foundation", NULL, NULL, role = c("ctb", "cph"))
