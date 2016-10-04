@@ -1,6 +1,6 @@
 Package: base64url
 Type: Package
-Title: Fast and url-safe base64 encoder and decoder
+Title: Fast and URL-safe base64 encoder and decoder
 Version: 1.0
 Authors@R: c(
     person("Michel", "Lang", NULL, "michellang@gmail.com", role = c("cre", "aut")),
@@ -12,6 +12,7 @@ Description: In contrast to RFC3548, the 62nd character ("+") is replaced with
     comply to the regular expression pattern "[A-Za-z0-9_-]" and thus are
     safe to use in URLs or for file names.
 URL: https://github.com/mllg/base64url
+BugReports: https://github.com/mllg/base64url/issues
 NeedsCompilation: yes
 License: Apache License 2.0
 Encoding: UTF-8
