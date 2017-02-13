@@ -1,13 +1,5 @@
 context("base32")
 
-library(backports)
-library(checkmate)
-
-rand = function(n, min = 1L, max = 32L) {
-  chars = c(letters, LETTERS, c("=", "+", "-", "_", "/", "&", "ö", "=", "?", ":", ".", "`"))
-  replicate(n, paste0(sample(chars, sample(min:max, 1L), replace = TRUE), collapse = ""))
-}
-
 test_that("encode and decode on random strings", {
   for (i in 1:10) {
     plain = rand(1000)

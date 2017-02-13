@@ -1,13 +1,6 @@
 context("base64url")
 
-library(backports)
-library(checkmate)
 requireNamespace("base64enc")
-
-rand = function(n, min = 1L, max = 32L) {
-  chars = c(letters, LETTERS, c("=", "+", "-", "_", "/", "&", "ö", "=", "?", ":", ".", "`"))
-  replicate(n, paste0(sample(chars, sample(min:max, 1L), replace = TRUE), collapse = ""))
-}
 
 convert_to_url = function(x) {
   x = gsub("/", "_", x, fixed = TRUE)
