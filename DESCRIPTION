@@ -4,17 +4,20 @@ Title: Fast and URL-Safe Base64 Encoder and Decoder
 Version: 1.1
 Authors@R: c(
     person("Michel", "Lang", NULL, "michellang@gmail.com", role = c("cre", "aut")),
-    person(NULL, "Apache Foundation", NULL, NULL, role = c("ctb", "cph"))
+    person(NULL, "Apache Foundation", NULL, NULL, role = c("ctb", "cph")),
+    person(NULL, "Free Software Foundation", NULL, NULL, role = c("ctb", "cph"))
     )
 Description: In contrast to RFC3548, the 62nd character ("+") is replaced with
     "-", the 63rd character ("/") is replaced with "_". Furthermore, the encoder
     does not fill the string with trailing "=". The resulting encoded strings
     comply to the regular expression pattern "[A-Za-z0-9_-]" and thus are
     safe to use in URLs or for file names.
+    The package also comes with a simple base32 encoder/decoder suited for
+    case insenstive file systems.
 URL: https://github.com/mllg/base64url
 BugReports: https://github.com/mllg/base64url/issues
 NeedsCompilation: yes
-License: Apache License 2.0
+License: Apache License 2.0 | GPL-2
 Encoding: UTF-8
 Suggests:
     backports,
@@ -25,5 +28,5 @@ Suggests:
     openssl,
     rmarkdown,
     testthat
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 VignetteBuilder: knitr
