@@ -19,8 +19,9 @@ BugReports: https://github.com/mllg/base64url/issues
 NeedsCompilation: yes
 License: Apache License 2.0 | GPL-2
 Encoding: UTF-8
+Imports:
+    backports
 Suggests:
-    backports,
     base64enc,
     checkmate,
     knitr,

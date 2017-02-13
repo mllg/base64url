@@ -1,4 +1,3 @@
-library(backports)
 library(checkmate)
 
 rand = function(n, min = 1L, max = 32L) {
