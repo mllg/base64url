@@ -5,7 +5,11 @@
 #'
 #' @param x [\code{character(1)}]\cr
 #'   Character vector to encode or decode.
-#'
+#' @param use.padding [\code{logical(1)}]\cr
+#'   If \code{TRUE}, \code{base32_encode} returns a string whose length is a multiple of 8,
+#'   padded with trailing \dQuote{=} if required.
+#'   \code{base32_decode} expects such a string unless this is set to \code{FALSE} (default).
+#'   The internal algorithm currently works with padding, thus it is faster to set this to \code{TRUE}.
 #' @return [\code{character}] of the same length as input \code{x}.
 #' @useDynLib base64url b32e
 #' @export
@@ -15,7 +19,7 @@
 #' decoded = base32_decode(encoded)
 #' print(encoded)
 #' print(decoded)
-base32_encode = function(x, use.padding = TRUE) {
+base32_encode = function(x, use.padding = FALSE) {
   res = .Call(b32e, x)
   if (isTRUE(use.padding))
     return(res)
@@ -25,7 +29,7 @@ base32_encode = function(x, use.padding = TRUE) {
 #' @rdname base32_encode
 #' @useDynLib base64url b32d
 #' @export
-base32_decode = function(x, use.padding = TRUE) {
+base32_decode = function(x, use.padding = FALSE) {
   if (!isTRUE(use.padding)) {
     i = which(!is.na(x) & nzchar(x))
     if (length(i))

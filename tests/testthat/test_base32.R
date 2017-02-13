@@ -21,14 +21,14 @@ test_that("encode and decode on random strings", {
 })
 
 test_that("unexpected input", {
-  expect_identical(base32_encode(""), "")
-  expect_identical(base32_decode(""), "")
-  expect_identical(base32_encode(NA_character_), NA_character_)
-  expect_identical(base32_decode(NA_character_), NA_character_)
-  expect_identical(base32_encode(character(0)), character(0))
-  expect_identical(base32_decode(character(0)), character(0))
-  expect_error(base32_encode(NA), "character vector")
-  expect_error(base32_decode(NA), "character vector")
+  expect_identical(base32_encode("", use.padding = TRUE), "")
+  expect_identical(base32_decode("", use.padding = TRUE), "")
+  expect_identical(base32_encode(NA_character_, use.padding = TRUE), NA_character_)
+  expect_identical(base32_decode(NA_character_, use.padding = TRUE), NA_character_)
+  expect_identical(base32_encode(character(0), use.padding = TRUE), character(0))
+  expect_identical(base32_decode(character(0), use.padding = TRUE), character(0))
+  expect_error(base32_encode(NA, use.padding = TRUE), "character vector")
+  expect_error(base32_decode(NA, use.padding = TRUE), "character vector")
 
   expect_identical(base32_encode("", use.padding = FALSE), "")
   expect_identical(base32_decode("", use.padding = FALSE), "")

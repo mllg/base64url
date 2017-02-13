@@ -5,13 +5,19 @@
 \alias{base32_decode}
 \title{Encode to base32 or Decode from base32}
 \usage{
-base32_encode(x, use.padding = TRUE)
+base32_encode(x, use.padding = FALSE)
 
-base32_decode(x, use.padding = TRUE)
+base32_decode(x, use.padding = FALSE)
 }
 \arguments{
 \item{x}{[\code{character(1)}]\cr
 Character vector to encode or decode.}
+
+\item{use.padding}{[\code{logical(1)}]\cr
+If \code{TRUE}, \code{base32_encode} returns a string whose length is a multiple of 8,
+padded with trailing \dQuote{=} if required.
+\code{base32_decode} expects such a string unless this is set to \code{FALSE} (default).
+The internal algorithm currently works with padding, thus it is faster to set this to \code{TRUE}.}
 }
 \value{
 [\code{character}] of the same length as input \code{x}.

@@ -1,6 +1,6 @@
 context("base64url")
 
-requireNamespace("base64enc")
+requireNamespace("base64enc", quietly = TRUE)
 
 convert_to_url = function(x) {
   x = gsub("/", "_", x, fixed = TRUE)
