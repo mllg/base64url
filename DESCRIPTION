@@ -13,7 +13,7 @@ Description: In contrast to RFC3548, the 62nd character ("+") is replaced with
     comply to the regular expression pattern "[A-Za-z0-9_-]" and thus are
     safe to use in URLs or for file names.
     The package also comes with a simple base32 encoder/decoder suited for
-    case insenstive file systems.
+    case insensitive file systems.
 URL: https://github.com/mllg/base64url
 BugReports: https://github.com/mllg/base64url/issues
 NeedsCompilation: yes
