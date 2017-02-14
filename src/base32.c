@@ -30,48 +30,22 @@
 static inline unsigned char to_uchar(char ch) { return ch; }
 static const char b32str[32] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
-void base32_encode(const char *in, size_t inlen, char *out, size_t outlen) {
-    while (inlen && outlen) {
+void base32_encode(const char *in, size_t inlen, char *out) {
+    while (inlen) {
         *out++ = b32str[(to_uchar(in[0]) >> 3) & 0x1f];
-        if (!--outlen)
-            break;
-
         *out++ = b32str[((to_uchar(in[0]) << 2) + (--inlen ? to_uchar(in[1]) >> 6 : 0)) & 0x1f];
-        if (!--outlen)
-            break;
-
         *out++ = (inlen ? b32str[(to_uchar(in[1]) >> 1) & 0x1f] : '=');
-        if (!--outlen)
-            break;
-
         *out++ = (inlen ? b32str[((to_uchar(in[1]) << 4) + (--inlen ? to_uchar(in[2]) >> 4 : 0)) & 0x1f] : '=');
-        if (!--outlen)
-            break;
-
         *out++ = (inlen ? b32str[((to_uchar(in[2]) << 1) + (--inlen ? to_uchar(in[3]) >> 7 : 0)) & 0x1f] : '=');
-        if (!--outlen)
-            break;
-
         *out++ = (inlen ? b32str[(to_uchar(in[3]) >> 2) & 0x1f] : '=');
-        if (!--outlen)
-            break;
-
         *out++ = (inlen ? b32str[((to_uchar(in[3]) << 3) + (--inlen ? to_uchar(in[4]) >> 5 : 0)) & 0x1f] : '=');
-        if (!--outlen)
-            break;
-
         *out++ = inlen ? b32str[to_uchar(in[4]) & 0x1f] : '=';
-        if (!--outlen)
-            break;
 
         if (inlen) inlen--;
-
-        if (inlen)
-            in += 5;
+        if (inlen) in += 5;
     }
 
-    if (outlen)
-        *out = '\0';
+    *out++ = '\0';
 }
 
 #define B32(_)          \
@@ -268,7 +242,6 @@ static bool base32_decode(const char *in, size_t inlen, char *out, size_t *outle
     }
 
     *out++ = '\0';
-    *outlen -= outleft;
 
     return (inlen == 0);
 }
@@ -289,13 +262,18 @@ SEXP b32e(SEXP strings) {
             R_len_t n_in = strlen(plain);
             R_len_t n_out = 1 + ((n_in + 4) / 5) * 8;
 
-            if (n_in > n_out)
+            if (n_in > n_out) {
+                UNPROTECT(1);
                 error("Input is too long");
+            }
             char *encoded = malloc(n_out);
-            if (encoded == NULL)
+            if (encoded == NULL) {
+                free(encoded);
+                UNPROTECT(1);
                 error("Failed to allocate memory");
+            }
 
-            base32_encode(plain, n_in, encoded, n_out);
+            base32_encode(plain, n_in, encoded);
             SET_STRING_ELT(result, i, mkChar(encoded));
             free(encoded);
         }
@@ -323,11 +301,16 @@ SEXP b32d(SEXP strings) {
             } else {
                 size_t n_out = 5 * (n_in / 8) + 4;
                 char *plain = malloc(n_out);
-
-                if (encoded == NULL)
+                if (plain == NULL) {
+                    free(plain);
+                    UNPROTECT(1);
                     error("Failed to allocate memory");
-                if (!base32_decode(encoded, n_in, plain, &n_out) || (n_out == 0 && n_in > 0))
+                }
+                if (!base32_decode(encoded, n_in, plain, &n_out) || (n_out == 0 && n_in > 0)) {
+                    free(plain);
+                    UNPROTECT(1);
                     error("Error decoding string from base32");
+                }
 
                 SET_STRING_ELT(result, i, mkChar(plain));
                 free(plain);
