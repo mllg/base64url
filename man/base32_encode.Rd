@@ -32,3 +32,6 @@ decoded = base32_decode(encoded)
 print(encoded)
 print(decoded)
 }
+\references{
+Implementation based on base32 encoder/decoder in the GNU lib: \url{https://www.gnu.org/software/gnulib/}.
+}

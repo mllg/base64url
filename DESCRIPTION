@@ -17,7 +17,7 @@ Description: In contrast to RFC3548, the 62nd character ("+") is replaced with
 URL: https://github.com/mllg/base64url
 BugReports: https://github.com/mllg/base64url/issues
 NeedsCompilation: yes
-License: Apache License 2.0 | GPL-2
+License: GPL-3
 Encoding: UTF-8
 Imports:
     backports

@@ -9,7 +9,7 @@ In contrast to base64 RFC3548, the 62nd character (`'+'`) is replaced with `'-'`
 Furthermore, the encoder does not fill the string with trailing `'='`.
 The resulting encoded strings comply to the regular expression pattern `'[A-Za-z0-9_-]'` and thus are safe to use in URLs or for file names.
 
-For a small benchmark, see the [vignette](https://cran.r-project.org/web/packages/base64url/vignettes/Benchmarks.html).
+For a small benchmark, see the [vignette](https://cran.r-project.org/package=base64url/vignettes/Benchmarks.html).
 
 As of version 1.1, this package also ships with a simple base32 encoder/decoder suited to mangle file names on case insensitive file systems.
 

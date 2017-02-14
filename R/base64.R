@@ -10,6 +10,7 @@
 #'   Character vector to encode or decode.
 #'
 #' @return [\code{character}] of the same length as input \code{x}.
+#' @references Implementation based on base64 encoder/decoder in the Apache Portable Runtime (APR): \url{https://svn.apache.org/repos/asf/apr/apr/trunk/encoding/apr_base64.c}
 #' @useDynLib base64url b64e
 #' @export
 #' @examples

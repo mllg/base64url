@@ -11,6 +11,7 @@
 #'   \code{base32_decode} expects such a string unless this is set to \code{FALSE} (default).
 #'   The internal algorithm currently works with padding, thus it is faster to set this to \code{TRUE}.
 #' @return [\code{character}] of the same length as input \code{x}.
+#' @references Implementation based on base32 encoder/decoder in the GNU lib: \url{https://www.gnu.org/software/gnulib/}.
 #' @useDynLib base64url b32e
 #' @export
 #' @examples

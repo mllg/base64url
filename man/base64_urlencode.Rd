@@ -29,3 +29,6 @@ decoded = base64_urldecode(encoded)
 print(encoded)
 print(decoded)
 }
+\references{
+Implementation based on base64 encoder/decoder in the Apache Portable Runtime (APR): \url{https://svn.apache.org/repos/asf/apr/apr/trunk/encoding/apr_base64.c}
+}

@@ -1,7 +1,8 @@
 # base64url 1.1
 
-* Fixed vignette title.
 * Added `base32_encode()` and `base32_decode()`.
+* Changes license to GPL-3.
+* Fixed vignette title.
 
 # base64url 1.0
 
