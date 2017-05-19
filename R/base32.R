@@ -29,7 +29,6 @@ base32_encode = function(x, use.padding = FALSE) {
 
 #' @rdname base32_encode
 #' @useDynLib base64url b32d
-#' @import backports
 #' @export
 base32_decode = function(x, use.padding = FALSE) {
   if (!isTRUE(use.padding)) {

@@ -20,7 +20,7 @@ NeedsCompilation: yes
 License: GPL-3
 Encoding: UTF-8
 Imports:
-    backports
+    backports (>= 1.1.0)
 Suggests:
     base64enc,
     checkmate,
