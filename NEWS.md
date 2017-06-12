@@ -1,3 +1,8 @@
+# base64url 1.2
+
+* Native routines are now registered.
+* Update to new backports.
+
 # base64url 1.1
 
 * Added `base32_encode()` and `base32_decode()`.
