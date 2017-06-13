@@ -1,6 +1,7 @@
 # base64url 1.2
 
 * Native routines are now registered.
+* Vignette builds without `microbenchmark` installed.
 * Update to new backports.
 
 # base64url 1.1
