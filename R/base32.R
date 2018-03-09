@@ -36,5 +36,5 @@ base32_decode = function(x, use.padding = FALSE) {
     if (length(i))
       x[i] = paste0(x[i], strrep("=",  7L - ((nchar(x[i]) - 1L) %% 8L)))
   }
-  .Call(b32d, x)
+  enc2native(.Call(b32d, x))
 }
