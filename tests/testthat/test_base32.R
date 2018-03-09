@@ -9,15 +9,6 @@ test_that("encode and decode on random strings", {
     expect_character(unenc, any.missing = FALSE, len = length(plain), min.chars = 1L)
     expect_equal(plain, unenc)
   }
-
-  for (i in 1:10) {
-    plain = rand(1000)
-    enc = base32_encode(plain, use.padding = FALSE)
-    expect_character(enc, any.missing = FALSE, len = length(plain), pattern = "^[A-Z234567]+$")
-    unenc = base32_decode(enc, use.padding = FALSE)
-    expect_character(unenc, any.missing = FALSE, len = length(plain), min.chars = 1L)
-    expect_equal(plain, unenc)
-  }
 })
 
 test_that("unexpected input", {

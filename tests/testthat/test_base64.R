@@ -36,16 +36,21 @@ test_that("encode and decode on random strings", {
 
 test_that("comparison with base64enc", {
   for (i in 1:10) {
-    plain = rand(1000)
+    # base64enc seems to have problems with the encoding on windows :/
+    # rfc <-> rfc is not working!
+    plain = rand(1000, only.ascii = testOS("windows"))
     enc_rfc = base64enc_rfc(plain)
     enc_url = base64_urlencode(plain)
 
-    expect_equal(plain, base64_urldecode(enc_url))
-    expect_equal(plain, base64dec_rfc(enc_rfc))
+    # do we get plain back?
+    expect_equal(plain, base64_urldecode(enc_url), label = "url <-> url works")
+    expect_equal(plain, base64dec_rfc(enc_rfc), label = "rfc <-> rfc works")
 
+    # do we get the same encoding as rfc?
     expect_equal(enc_url, convert_to_url(enc_rfc))
     expect_equal(enc_rfc, convert_to_rfc(enc_url))
 
+    # do we get the same decodings?
     expect_equal(plain, base64_urldecode(convert_to_url(enc_rfc)))
     expect_equal(plain, base64dec_rfc(convert_to_rfc(enc_url)))
   }

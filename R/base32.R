@@ -21,7 +21,7 @@
 #' print(encoded)
 #' print(decoded)
 base32_encode = function(x, use.padding = FALSE) {
-  res = .Call(b32e, x)
+  res = .Call(b32e, enc2utf8(x))
   if (isTRUE(use.padding))
     return(res)
   sub("=+$", "", res)

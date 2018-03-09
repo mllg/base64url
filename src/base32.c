@@ -258,7 +258,7 @@ SEXP b32e(SEXP strings) {
         if (STRING_ELT(strings, i) == NA_STRING) {
             SET_STRING_ELT(result, i, NA_STRING);
         } else {
-            const char *plain = CHAR(STRING_ELT(strings, i));
+            const char *plain = translateCharUTF8(STRING_ELT(strings, i));
             R_len_t n_in = strlen(plain);
             R_len_t n_out = 1 + ((n_in + 4) / 5) * 8;
 
@@ -274,7 +274,7 @@ SEXP b32e(SEXP strings) {
             }
 
             base32_encode(plain, n_in, encoded);
-            SET_STRING_ELT(result, i, mkChar(encoded));
+            SET_STRING_ELT(result, i, mkCharCE(encoded, CE_ANY));
             free(encoded);
         }
     }
@@ -294,7 +294,7 @@ SEXP b32d(SEXP strings) {
         if (STRING_ELT(strings, i) == NA_STRING) {
             SET_STRING_ELT(result, i, NA_STRING);
         } else {
-            const char *encoded = CHAR(STRING_ELT(strings, i));
+            const char *encoded = translateCharUTF8(STRING_ELT(strings, i));
             R_len_t n_in = strlen(encoded);
             if (n_in == 0) {
                 SET_STRING_ELT(result, i, mkChar(""));
@@ -312,7 +312,7 @@ SEXP b32d(SEXP strings) {
                     error("Error decoding string from base32");
                 }
 
-                SET_STRING_ELT(result, i, mkChar(plain));
+                SET_STRING_ELT(result, i, mkCharCE(plain, CE_UTF8));
                 free(plain);
             }
         }

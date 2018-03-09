@@ -145,10 +145,10 @@ SEXP b64e(SEXP strings) {
         if (STRING_ELT(strings, i) == NA_STRING) {
             SET_STRING_ELT(result, i, NA_STRING);
         } else {
-            const char *plain = CHAR(STRING_ELT(strings, i));
+            const char *plain = translateCharUTF8(STRING_ELT(strings, i));
             char *encoded = malloc(sizeof(char) * Base64encode_len(strlen(plain)));
             Base64encode(encoded, plain, strlen(plain));
-            SET_STRING_ELT(result, i, mkChar(encoded));
+            SET_STRING_ELT(result, i, mkCharCE(encoded, CE_ANY));
             free(encoded);
         }
     }
@@ -169,10 +169,10 @@ SEXP b64d(SEXP strings) {
         if (STRING_ELT(strings, i) == NA_STRING) {
             SET_STRING_ELT(result, i, NA_STRING);
         } else {
-            const char *encoded = CHAR(STRING_ELT(strings, i));
+            const char *encoded = translateCharUTF8(STRING_ELT(strings, i));
             char *plain = malloc(sizeof(char) * Base64decode_len(encoded));
             Base64decode(plain, encoded);
-            SET_STRING_ELT(result, i, mkChar(plain));
+            SET_STRING_ELT(result, i, mkCharCE(plain, CE_UTF8));
             free(plain);
         }
     }
