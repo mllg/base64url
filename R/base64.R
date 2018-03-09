@@ -27,5 +27,5 @@ base64_urlencode = function(x) {
 #' @useDynLib base64url b64d
 #' @export
 base64_urldecode = function(x) {
-  enc2native(.Call(b64d, x))
+  .Call(b64d, x)
 }
