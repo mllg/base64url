@@ -1,3 +1,7 @@
+# base64url 1.3
+
+* Fixed decoding on windows for input encoded in native encoding.
+
 # base64url 1.2
 
 * Native routines are now registered.
