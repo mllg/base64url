@@ -38,7 +38,7 @@ test_that("comparison with base64enc", {
   for (i in 1:10) {
     # base64enc seems to have problems with the encoding on windows :/
     # rfc <-> rfc is not working!
-    plain = rand(1000, only.ascii = !testOS("windows"))
+    plain = rand(1000, only.ascii = testOS("windows"))
     enc_rfc = base64enc_rfc(plain)
     enc_url = base64_urlencode(plain)
 
