@@ -20,7 +20,7 @@
 #' print(encoded)
 #' print(decoded)
 base64_urlencode = function(x) {
-  .Call(b64e, x)
+  .Call(b64e, enc2utf8(x))
 }
 
 #' @rdname base64_urlencode
