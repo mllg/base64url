@@ -23,6 +23,15 @@ base64dec_rfc = function(x) {
   vapply(x, function(x) rawToChar(base64enc::base64decode(x)), NA_character_, USE.NAMES = FALSE)
 }
 
+
+base64enc_openssl = function(x) {
+  vapply(x, function(x) openssl::base64_encode(x), NA_character_, USE.NAMES = FALSE)
+}
+
+base64dec_openssl = function(x) {
+  vapply(x, function(x) rawToChar(openssl::base64_decode(x)), NA_character_, USE.NAMES = FALSE)
+}
+
 test_that("encode and decode on random strings", {
   for (i in 1:10) {
     plain = rand(1000)
@@ -50,9 +59,29 @@ test_that("comparison with base64enc", {
     expect_equal(enc_url, convert_to_url(enc_rfc))
     expect_equal(enc_rfc, convert_to_rfc(enc_url))
 
-    # do we get the same decodings?
+    # do we get the same decodings after conversion?
     expect_equal(plain, base64_urldecode(convert_to_url(enc_rfc)))
     expect_equal(plain, base64dec_rfc(convert_to_rfc(enc_url)))
+  }
+})
+
+test_that("comparison with openssl", {
+  for (i in 1:10) {
+    plain = rand(1000, only.ascii = FALSE)
+    enc_openssl = base64enc_openssl(plain)
+    enc_url = base64_urlencode(plain)
+
+    # do we get plain back?
+    expect_equal(plain, base64_urldecode(enc_url), label = "url <-> url works")
+    expect_equal(plain, base64dec_openssl(enc_openssl), label = "openssl <-> openssl works")
+
+    # do we get the same encoding as openssl?
+    expect_equal(enc_url, convert_to_url(enc_openssl))
+    expect_equal(enc_openssl, convert_to_rfc(enc_url))
+
+    # do we get the same decodings after conversion?
+    expect_equal(plain, base64_urldecode(convert_to_url(enc_openssl)))
+    expect_equal(plain, base64dec_openssl(convert_to_rfc(enc_url)))
   }
 })
 
