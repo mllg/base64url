@@ -67,7 +67,9 @@ test_that("comparison with base64enc", {
 
 test_that("comparison with openssl", {
   for (i in 1:10) {
-    plain = rand(1000, only.ascii = FALSE)
+    # openssl seems to have problems with the encoding on windows :/
+    # openssl <-> openssl is not working!
+    plain = rand(1000, only.ascii = testOS("windows"))
     enc_openssl = base64enc_openssl(plain)
     enc_url = base64_urlencode(plain)
 
