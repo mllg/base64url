@@ -1,3 +1,8 @@
+# base64url 1.4
+
+* Disabled tests which compared encodings of non-ascii strings to encodings in
+  packages `base64enc` and `openssl` on some systems.
+
 # base64url 1.3
 
 * Fixed decoding on windows for input encoded in native encoding.

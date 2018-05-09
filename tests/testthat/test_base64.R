@@ -2,6 +2,10 @@ context("base64url")
 
 requireNamespace("base64enc", quietly = TRUE)
 
+is_utf8 = function() {
+  grepl("utf-?8", Sys.getlocale("LC_CTYPE"), ignore.case = TRUE)
+}
+
 convert_to_url = function(x) {
   x = gsub("/", "_", x, fixed = TRUE)
   x = gsub("+", "-", x, fixed = TRUE)
@@ -45,9 +49,9 @@ test_that("encode and decode on random strings", {
 
 test_that("comparison with base64enc", {
   for (i in 1:10) {
-    # base64enc seems to have problems with the encoding on windows :/
+    # base64enc seems to have problems with the encoding :/
     # rfc <-> rfc is not working!
-    plain = rand(1000, only.ascii = testOS("windows"))
+    plain = rand(1000, only.ascii = testOS("windows") || !is_utf8())
     enc_rfc = base64enc_rfc(plain)
     enc_url = base64_urlencode(plain)
 
@@ -69,7 +73,7 @@ test_that("comparison with openssl", {
   for (i in 1:10) {
     # openssl seems to have problems with the encoding on windows :/
     # openssl <-> openssl is not working!
-    plain = rand(1000, only.ascii = testOS("windows"))
+    plain = rand(1000, only.ascii = testOS("windows") || !is_utf8())
     enc_openssl = base64enc_openssl(plain)
     enc_url = base64_urlencode(plain)
 
